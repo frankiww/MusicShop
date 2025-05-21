@@ -1,15 +1,21 @@
+<!-- 2B2D42 -->
+<!-- 8D99AE -->
+<!-- EDF2F4 -->
+
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <AppHeader />
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppHeader from './components/AppHeader.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    AppHeader
   }
 }
 </script>
@@ -19,8 +25,11 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #2B2D42;
+  margin-top: 0px;
+
+}
+body{
+    background-color: #EDF2F4;
 }
 </style>
