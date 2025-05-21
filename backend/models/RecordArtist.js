@@ -1,11 +1,10 @@
 const {DataTypes} = require('sequelize');
 const sequelize = require('../config/database');
 
-const Order = sequelize.define('Order', {
+const RecordArtist = sequelize.define('RecordArtist', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    storeId: {type: DataTypes.INTEGER, allowNull: false},
     recordingId: {type: DataTypes.INTEGER, allowNull: false},
-    statusId: {type: DataTypes.INTEGER, allowNull: false},
+    artistId: {type: DataTypes.INTEGER, allowNull: false},
 });
 
-module.exports = Order;
+module.exports = RecordArtist;
