@@ -85,4 +85,7 @@
 </script>
 
 <style>
+    .records-view{
+        margin: 20px;
+    }
 </style>

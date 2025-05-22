@@ -67,7 +67,7 @@ exports.getRecordingById = async (req, res) => {
         }
   };
 
-  exports.avaliableShops = async (req, res) => {
+  exports.availableShops = async (req, res) => {
     try {
         const recordingId = req.params.id;
         const catalogs = await Catalog.findAll({
@@ -86,7 +86,7 @@ exports.getRecordingById = async (req, res) => {
         }
   };
 
-  exports.unavaliableShops = async (req, res) => {
+  exports.unavailableShops = async (req, res) => {
     try {
         const recordingId = req.params.id;
         const allStores = await Store.findAll();

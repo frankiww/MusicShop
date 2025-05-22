@@ -1,5 +1,5 @@
 <template>
-    <div v-if="recording">
+    <div v-if="recording" class="details">
         <div class="info">
             <h1>Информация о записи</h1>
             <p>Название: {{recording.name}}</p>
@@ -18,6 +18,13 @@
             <p>Носитель: {{recording.Medium.name}}</p>
             <p>Год: {{recording.year}}</p>
         </div>
+
+        <button @click="showOrderModal = true">Создать заказ</button>
+        <OrderTable
+            v-if="showOrderModal"
+            :recording="recording"
+            @close="showOrderModal=false" />
+
 
         <div v-if="shopsWith.length>0">
             <h2>В наличии:</h2>
@@ -44,17 +51,20 @@
 
 <script>
     import ShopTable from '@/components/ShopTable.vue';
+    import OrderTable from '@/components/OrderTable.vue';
 
     export default{
         name: 'RecordDetails',
         components: {
-            ShopTable
+            ShopTable,
+            OrderTable
         },
         data(){
             return{
                 recording: null,
                 shopsWith: [],
-                shopsWithout: []
+                shopsWithout: [], 
+                showOrderModal: false
             };
         },
         mounted(){
@@ -75,7 +85,7 @@
             async fetchShopsWith(){
                 try{
                     const id = this.$route.params.id;
-                    const res = await fetch(`/api/recordings/${id}/avaliable`);
+                    const res = await fetch(`/api/recordings/${id}/available`);
                     this.shopsWith = await res.json();
                 } catch(err){
                     console.error(err);
@@ -84,7 +94,7 @@
             async fetchShopsWithout(){
                 try{
                     const id = this.$route.params.id;
-                    const res = await fetch(`/api/recordings/${id}/unavaliable`);
+                    const res = await fetch(`/api/recordings/${id}/unavailable`);
                     this.shopsWithout = await res.json();
                 } catch(err){
                     console.error(err);
@@ -105,5 +115,21 @@
     h3{
         text-align: center;
         margin: 3%;
+    }
+    .info{
+
+    }
+    .details{
+        margin: 20px;
+    }
+    button{
+        background-color: #8D99AE;
+        color: #2B2D42;
+        padding: 0.5%;
+        border: 1px solid #EDF2F4;
+        font-size: 100%;
+        cursor: pointer;
+        width: 20%;
+        margin: 1% 0;
     }
 </style>

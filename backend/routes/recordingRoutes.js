@@ -6,9 +6,9 @@ router.get('/', recordingController.getAllRecordings);
 
 router.get('/:id', recordingController.getRecordingById);
 
-router.get('/:id/avaliable', recordingController.avaliableShops);
+router.get('/:id/available', recordingController.availableShops);
 
-router.get('/:id/unavaliable', recordingController.unavaliableShops);
+router.get('/:id/unavailable', recordingController.unavailableShops);
 
 
 module.exports = router;

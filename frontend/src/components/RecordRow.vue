@@ -35,8 +35,9 @@ export default {
 
 <style scoped>
 td {
-  padding: 4px;
+  padding: 8px;
   border: 1px solid #2B2D42;
+  cursor: pointer;
 }
 ul {
   list-style-type: none;
