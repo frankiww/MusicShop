@@ -6,6 +6,7 @@ const Recording = sequelize.define('Recording', {
     name: {type: DataTypes.STRING, allowNull: false},
     mediumId: {type: DataTypes.INTEGER, allowNull: false},
     year: {type: DataTypes.STRING, allowNull: false},
+    wholesale_price: {type: DataTypes.DECIMAL, allowNull: false},
 });
 
 module.exports = Recording;

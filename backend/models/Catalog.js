@@ -6,7 +6,6 @@ const Catalog = sequelize.define('Catalog', {
     storeId: {type: DataTypes.INTEGER, allowNull: false},
     recordingId: {type: DataTypes.INTEGER, allowNull: false},
     retail_price: {type: DataTypes.DECIMAL, allowNull: false},
-    wholesale_price: {type: DataTypes.DECIMAL, allowNull: false},
     stock: {type: DataTypes.INTEGER, allowNull: false},
 });
 

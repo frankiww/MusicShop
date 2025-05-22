@@ -7,6 +7,7 @@
         <th>Носитель</th>
         <th>Исполнители</th>
         <th>Жанры</th>
+        <th>Оптовая цена</th>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +15,8 @@
         v-for="record in records"
         :key="record.id"
         :record="record"
+        @click="goToDetails(record.id)"
+        class="click"
       />
     </tbody>
   </table>
@@ -33,6 +36,11 @@ export default {
       required: true,
     },
   },
+  methods: {
+    goToDetails(id) {
+      this.$router.push(`/recordings/${id}`);
+    }
+  }
 };
 </script>
 

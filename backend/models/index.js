@@ -24,6 +24,9 @@ Order.belongsTo(Status, {foreignKey: 'statusId'});
 
 Recording.belongsToMany(Store, { through: Catalog, foreignKey: 'recordingId' });
 Store.belongsToMany(Recording, { through: Catalog, foreignKey: 'storeId' });
+Catalog.belongsTo(Store, { foreignKey: 'storeId' });
+Catalog.belongsTo(Recording, { foreignKey: 'recordingId' });
+
 
 Order.belongsTo(Recording, { foreignKey: 'recordingId' });
 Order.belongsTo(Store, { foreignKey: 'storeId' });

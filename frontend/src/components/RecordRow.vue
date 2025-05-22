@@ -17,6 +17,7 @@
         </li>
     </ul>
     </td>
+    <td>{{ record.wholesale_price }}</td>
   </tr>
 </template>
 
