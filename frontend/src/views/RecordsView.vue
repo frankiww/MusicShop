@@ -1,50 +1,88 @@
 <!-- Главная страница -->
 
 <template>
-    <div class="records-view p-4">
-        <h1 class="text-2x1 font-bold mb-4">Каталог записей</h1>
-            <div class="filters felx flex-wrap gap-4 mb-6">
-                
-                <input v-model="searchQuery"
-                type="text"
-                placeholder="Поиск по названию"
-                class="border p2 rounded w-full sm:w-64" />
+    <div class="records-view">
+        <h1>Каталог записей</h1>
 
-                <select v-model="selectedGenre" class="border p-2 ronded">
-                    <option value="">Все жанры</option>
-                    <option></option>
-                </select>
+        <FilterPanel
+            v-model:search="searchQuery"
+            v-model:genre="selectedGenre"
+            v-model:artist="selectedArtist"
+            v-model:medium="selectedMedium"
+            :genres="genres"
+            :artists="artists"
+            :mediums="mediums"
+        />
 
-                <select v-model="selectedArtist" class="border p-2 ronded">
-                    <option value="">Все исполнители</option>
-                    <option></option>
-                </select>
-
-                <select v-model="selectedMedium" class="border p-2 ronded">
-                    <option value="">Все носители</option>
-                    <option></option>
-                </select>
-                
-            </div>
-
-            <table class="w-full border-collapse">
-                <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Исполнитель</th>
-                        <th>Жанр</th>
-                        <th>Носитель</th>
-                        <th>Год</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+        <RecordTable :records="records"/>
     </div>
 </template>
 
 <script>
+    import FilterPanel from '@/components/FilterPanel.vue';
+    import RecordTable from '@/components/RecordTable.vue';
+
     export default {
         name: 'RecordsView',
+        components: {
+            FilterPanel,
+            RecordTable
+        },
+        data(){
+            return{
+                searchQuery: '',
+                selectedGenre: '',
+                selectedArtist: '',
+                selectedMedium: '',
+                genres: [],
+                artists: [],
+                mediums: [],
+                records: []
+            }
+        },
+        mounted(){
+            this.fetchFilterData();
+            this.fetchRecords();
+        },
+        watch: {
+            searchQuery: 'fetchRecords',
+            selectedGenre: 'fetchRecords',
+            selectedArtist: 'fetchRecords',
+            selectedMedium: 'fetchRecords',
+        },
+        methods: {
+            async fetchFilterData(){
+                try{
+                    const [genresRes, artistsRes, mediumsRes] = await Promise.all([
+                        fetch('/api/genres'),
+                        fetch('/api/artists'),
+                        fetch('/api/mediums')
+                    ])
+                    this.genres = await genresRes.json()
+                    this.artists = await artistsRes.json()
+                    this.mediums = await mediumsRes.json()
+                } catch(error){
+                    console.error(error)
+                }
+            },
+            async fetchRecords() {
+                try {
+                    const params = new URLSearchParams();
+                    if (this.searchQuery) params.append('title', this.searchQuery);
+                    if (this.selectedGenre) params.append('genreId', this.selectedGenre);
+                    if (this.selectedArtist) params.append('artistId', this.selectedArtist);
+                    if (this.selectedMedium) params.append('mediumId', this.selectedMedium);
+
+                    const response = await fetch(`/api/recordings?${params.toString()}`);
+                    this.records = await response.json();
+                } catch (error) {
+                    console.error('Ошибка при загрузке записей:', error);
+                }
+            }
+
+        }
     }
 </script>
+
+<style>
+</style>

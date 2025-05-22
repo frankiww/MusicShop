@@ -7,7 +7,7 @@ exports.getAllRecordings = async (req, res) => {
 
         const filter = {};
         if (title) {
-            filter.title = {[Op.iLike]: `%${title}%`};
+            filter.name = {[Op.iLike]: `%${title}%`};
         }
         if (mediumId){
             filter.mediumId = mediumId;

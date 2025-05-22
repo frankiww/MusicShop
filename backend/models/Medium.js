@@ -4,6 +4,9 @@ const sequelize = require('../config/database');
 const Medium = sequelize.define('Medium', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, allowNull: false},
-});
+}, {
+    tableName: 'Mediums',
+    freezeTableName: true
+  });
 
 module.exports = Medium;

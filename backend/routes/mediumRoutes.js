@@ -1,7 +1,7 @@
 const express = require('express');
-const genreController = require('../controllers/genreController');
+const mediumController = require('../controllers/mediumController');
 const router = express.Router();
 
-router.get('/', genreController.getAllGenres);
+router.get('/', mediumController.getAllMediums);
 
 module.exports = router;
