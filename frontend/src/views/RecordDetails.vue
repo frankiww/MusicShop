@@ -20,7 +20,7 @@
         </div>
 
         <button @click="showOrderModal = true">Создать заказ</button>
-        <OrderTable
+        <OrderForm
             v-if="showOrderModal"
             :recording="recording"
             @close="showOrderModal=false" />
@@ -51,13 +51,13 @@
 
 <script>
     import ShopTable from '@/components/ShopTable.vue';
-    import OrderTable from '@/components/OrderTable.vue';
+    import OrderForm from '@/components/OrderForm.vue';
 
     export default{
         name: 'RecordDetails',
         components: {
             ShopTable,
-            OrderTable
+            OrderForm
         },
         data(){
             return{
