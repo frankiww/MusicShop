@@ -12,6 +12,7 @@
         v-for="store in stores"
         :key="store.id"
         :store="store"
+        @click="goToDetails(store.id)"
       />
     </tbody>
   </table>
@@ -31,6 +32,11 @@ export default {
       required: true,
     },
   },
+  methods: {
+    goToDetails(id) {
+      this.$router.push(`/stores/${id}`);
+    }
+  }
 };
 </script>
 

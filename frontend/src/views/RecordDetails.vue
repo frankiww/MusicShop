@@ -33,7 +33,7 @@
                 :catalogs="shopsWith"
                 :recording="recording" />
         </div>
-        <div v-else><h3>Запись не доступна ни в одном магазине </h3></div>
+        <div v-else><h3>Запись недоступна ни в одном магазине </h3></div>
 
         <div v-if="shopsWithout.length>0">     
             <h2>Нет в наличии:</h2>

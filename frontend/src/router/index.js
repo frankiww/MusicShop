@@ -6,6 +6,8 @@ import ShopsView from '../views/ShopsView.vue'
 import OrdersView from '../views/OrdersView.vue'
 // import AdminLogin from '../views/AdminLogin.vue'
 import RecordDetails from '../views/RecordDetails.vue'
+import StoreDetails from '../views/StoreDetails.vue'
+
 
 const routes = [
     {path: '/', component: RecordsView },
@@ -13,7 +15,8 @@ const routes = [
     // {path: '/analytics', component: Analytics },
     {path: '/orders', component: OrdersView },
     // {path: '/admin', component: AdminLogin },
-    {path: '/recordings/:id', component: RecordDetails}
+    {path: '/recordings/:id', component: RecordDetails},
+    {path: '/stores/:id', component: StoreDetails}
 ]
 
 const router = createRouter({
