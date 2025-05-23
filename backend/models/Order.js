@@ -7,7 +7,6 @@ const Order = sequelize.define('Order', {
     recordingId: {type: DataTypes.INTEGER, allowNull: false},
     quantity: {type: DataTypes.INTEGER, allowNull: false},
     price: {type: DataTypes.DECIMAL, allowNull: false},
-    date: {type: DataTypes.DATE, allowNull: false},
     statusId: {type: DataTypes.INTEGER, allowNull: false},
 });
 

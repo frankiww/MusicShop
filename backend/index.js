@@ -8,6 +8,8 @@ const genreRoutes = require('./routes/genreRoutes');
 const artistRoutes = require('./routes/artistRoutes');
 const mediumRoutes = require('./routes/mediumRoutes');
 const storeRoutes = require('./routes/storeRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
 
 
 
@@ -21,6 +23,8 @@ app.use('/api/genres', genreRoutes);
 app.use('/api/artists', artistRoutes);
 app.use('/api/mediums', mediumRoutes);
 app.use('/api/stores', storeRoutes);
+app.use('/api/orders', orderRoutes);
+
 
 
 

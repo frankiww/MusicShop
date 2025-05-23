@@ -82,10 +82,6 @@
                         ...s,
                         stock: stockmap[s.id] || 0,
                     }));
-                    console.log("All stores:", allstores);
-                    console.log("Available stock:", avail);
-
-                    console.log("магазины: ", this.stores);
                     
                 } catch (err) {
                     console.error(err);
@@ -107,7 +103,8 @@
                 }
 
                 try {
-                    await fetch('/api/orders', {
+                    console.log(orders);
+                    await fetch('/api/orders/create', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json'},
                         body: JSON.stringify({orders}),
