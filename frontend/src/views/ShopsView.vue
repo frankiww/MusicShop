@@ -8,22 +8,20 @@
             v-model:search="searchQuery"
         />
 
-        <ShopTable 
-        :shops="stores"/>
-
-        
+        <StoreListTable 
+        :stores="stores"/>
     </div>
 </template>
 
 <script>
     import SearchPanel from '@/components/SearchPanel.vue';
-    import ShopTable from '@/components/ShopTable.vue';
+    import StoreListTable from '@/components/StoreListTable.vue';
 
     export default {
         name: 'ShopsView',
         components: {
             SearchPanel,
-            ShopTable
+            StoreListTable
         },
         data(){
             return{
@@ -31,7 +29,7 @@
                 stores: []
             }
         },
-        mounted(){
+        async mounted(){
             this.fetchStores();
         },
         watch: {
@@ -55,4 +53,7 @@
 </script>
 
 <style>
+    .stores-view{
+        margin: 20px;
+    }
 </style>

@@ -26,12 +26,14 @@ Recording.belongsToMany(Store, { through: Catalog, foreignKey: 'recordingId' });
 Store.belongsToMany(Recording, { through: Catalog, foreignKey: 'storeId' });
 Catalog.belongsTo(Store, { foreignKey: 'storeId' });
 Catalog.belongsTo(Recording, { foreignKey: 'recordingId' });
-
+Store.hasMany(Catalog, { foreignKey: 'storeId' });
+Recording.hasMany(Catalog, { foreignKey: 'recordingId' });
 
 Order.belongsTo(Recording, { foreignKey: 'recordingId' });
 Order.belongsTo(Store, { foreignKey: 'storeId' });
 Recording.hasMany(Order, { foreignKey: 'recordingId' });
 Store.hasMany(Order, { foreignKey: 'storeId' });
+
 
 Sale.belongsTo(Recording, { foreignKey: 'recordingId' });
 Sale.belongsTo(Store, { foreignKey: 'storeId' });

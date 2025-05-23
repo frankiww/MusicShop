@@ -12,7 +12,7 @@
 
 <script>
     export default{
-        name: 'FilterPanel',
+        name: 'SearchPanelPanel',
         props: {
         search: String,
         }
@@ -26,8 +26,7 @@
         gap: 10px;
         margin-bottom: 20px;
     }
-    .search-input,
-    .search-select {
+    input {
         padding: 6px;
     }
 </style>

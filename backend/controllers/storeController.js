@@ -11,10 +11,25 @@ exports.getAllStores = async (req, res) => {
         }
 
         const stores = await Store.findAll({
-            where: filter
+            where: filter,
+            include: [{
+                model: Catalog,
+                attributes: ['stock'],
+            }],
         });
 
-        res.status(200).json(stores);
+        const result = stores.map(store => {
+            const recordings = store.Catalogs || [];
+            const total = recordings.reduce((sum,r ) => sum + (r.stock ||0), 0);
+            return {
+                id: store.id,
+                name: store.name,
+                unique: recordings.length,
+                total: total,
+            };
+        })
+
+        res.status(200).json(result);
     } catch(error){
         console.error(error);
         res.status(500).json({error: 'Ошибка при получении записей'});
