@@ -19,6 +19,12 @@
             :mediums="mediums"
             />
 
+            <button @click="showOrderModal = true">Создать заказ</button>
+            <OrderFormRec
+            v-if="showOrderModal"
+            :store="store"
+            @close="showOrderModal=false" />
+
             <RecordTable 
             :records="recordings"
             :showPrice="true"
@@ -32,11 +38,14 @@
 <script>
     import FilterPanel from '@/components/FilterPanel.vue';
     import RecordTable from '@/components/RecordTable.vue';
+    import OrderFormRec from '@/components/OrderFormRec.vue';
+
     export default{
         name: 'StoreDetails',
         components: {
             FilterPanel,
-            RecordTable
+            RecordTable,
+            OrderFormRec
         },
         data(){
             return{
@@ -48,7 +57,9 @@
                 artists: [],
                 mediums: [],
                 store: null,
-                recordings: []
+                recordings: [],
+                showOrderModal: false
+
             }
         },
         async mounted() {

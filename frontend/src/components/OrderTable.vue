@@ -60,7 +60,7 @@ export default {
     },
     getRecordingName(id){
         const rec = this.recordings.find(r => r.id === id);
-        return rec ? `${rec.name}, ${rec.Medium.name}` : `#${id}`;
+        return rec ? `${rec.name} (${rec.Medium.name})` : `#${id}`;
     },
   }
 };

@@ -12,7 +12,7 @@
 
 <script>
     export default{
-        name: 'SearchPanelPanel',
+        name: 'SearchPanel',
         props: {
         search: String,
         }
