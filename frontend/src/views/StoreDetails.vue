@@ -61,10 +61,10 @@
             }
         },
         watch: {
-            searchQuery: 'fetchRecords',
-            selectedGenre: 'fetchRecords',
-            selectedArtist: 'fetchRecords',
-            selectedMedium: 'fetchRecords',
+            searchQuery: 'fetchRecordings',
+            selectedGenre: 'fetchRecordings',
+            selectedArtist: 'fetchRecordings',
+            selectedMedium: 'fetchRecordings',
         },
         methods: {
             async fetchFilterData(){
