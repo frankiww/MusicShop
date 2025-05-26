@@ -18,6 +18,8 @@
     </ul>
     </td>
     <td>{{ record.wholesale_price }}</td>
+    <td v-if="showPrice">{{ record.Catalogs[0].retail_price }}</td>
+    <td v-if="showPrice">{{ record.Catalogs[0].stock }}</td>
   </tr>
 </template>
 
@@ -28,9 +30,15 @@ export default {
     record: {
       type: Object,
       required: true
+    },
+    showPrice: {
+      type: Boolean
     }
+  },
+  mounted(){
+    console.log(this.record);
   }
-}
+};
 </script>
 
 <style scoped>

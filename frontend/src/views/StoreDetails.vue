@@ -1,5 +1,6 @@
 <template>
     <div v-if="store" class="details">
+            <button class="back" @click="$router.go(-1)">Назад</button>
             <div class="info">
                 <h1>Информация о магазине</h1>
                 <p>Название: {{store.name}}</p>
@@ -8,30 +9,78 @@
             </div>
 
 
+            <FilterPanel
+            v-model:search="searchQuery"
+            v-model:genre="selectedGenre"
+            v-model:artist="selectedArtist"
+            v-model:medium="selectedMedium"
+            :genres="genres"
+            :artists="artists"
+            :mediums="mediums"
+            />
 
-
+            <RecordTable 
+            :records="recordings"
+            :showPrice="true"
+            />
     </div>
     <div v-else>
-        <h3 class="error">Кажется что-то пошло не так...</h3>
+        <h3 class="error">Загрузка...</h3>
     </div> 
 </template>
 
 <script>
-
+    import FilterPanel from '@/components/FilterPanel.vue';
+    import RecordTable from '@/components/RecordTable.vue';
     export default{
         name: 'StoreDetails',
         components: {
-
+            FilterPanel,
+            RecordTable
         },
         data(){
             return{
-                store: null
-            };
+                searchQuery: '',
+                selectedGenre: '',
+                selectedArtist: '',
+                selectedMedium: '',
+                genres: [],
+                artists: [],
+                mediums: [],
+                store: null,
+                recordings: []
+            }
         },
-        mounted(){
-            this.fetchShop();
+        async mounted() {
+            try {
+                await this.fetchShop();
+                await this.fetchFilterData();
+                await this.fetchRecordings();
+            } catch (err) {
+                console.error(err);
+            }
+        },
+        watch: {
+            searchQuery: 'fetchRecords',
+            selectedGenre: 'fetchRecords',
+            selectedArtist: 'fetchRecords',
+            selectedMedium: 'fetchRecords',
         },
         methods: {
+            async fetchFilterData(){
+                try{
+                    const [genresRes, artistsRes, mediumsRes] = await Promise.all([
+                        fetch('/api/genres'),
+                        fetch('/api/artists'),
+                        fetch('/api/mediums')
+                    ])
+                    this.genres = await genresRes.json()
+                    this.artists = await artistsRes.json()
+                    this.mediums = await mediumsRes.json()
+                } catch(error){
+                    console.error(error)
+                }
+            },
             async fetchShop(){
                 try{
                     const id = this.$route.params.id;
@@ -41,6 +90,22 @@
                     console.error(err);
                 }
             },
+            async fetchRecordings(){
+                try{
+                    const params = new URLSearchParams();
+                    if (this.searchQuery) params.append('title', this.searchQuery);
+                    if (this.selectedGenre) params.append('genreId', this.selectedGenre);
+                    if (this.selectedArtist) params.append('artistId', this.selectedArtist);
+                    if (this.selectedMedium) params.append('mediumId', this.selectedMedium);
+                    params.append('storeId', this.store.id);
+
+                    const response = await fetch(`/api/recordings/inStore?${params.toString()}`);
+                    this.recordings = await response.json();
+                } catch(err){
+                    console.error(err);
+                }
+
+            }
              
         }
     }
@@ -70,5 +135,9 @@
         cursor: pointer;
         width: 20%;
         margin: 1% 0;
+    }
+    .back{
+        max-width: 10%;
+        margin: 0;
     }
 </style>

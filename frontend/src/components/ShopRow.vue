@@ -31,5 +31,6 @@ export default {
 td {
   padding: 8px;
   border: 1px solid #2B2D42;
+  cursor: pointer;
 }
 </style>

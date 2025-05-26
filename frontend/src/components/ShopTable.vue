@@ -15,6 +15,7 @@
         :shop="shop"
         :catalog="catalogs.find(c => c.storeId === shop.id)"
         :recording="recording"
+        @click="goToDetails(shop.id)"
       />
     </tbody>
   </table>
@@ -42,6 +43,11 @@ export default {
         required: true
     }
   },
+  methods: {
+    goToDetails(id) {
+      this.$router.push(`/stores/${id}`);
+    }
+  }
 };
 </script>
 

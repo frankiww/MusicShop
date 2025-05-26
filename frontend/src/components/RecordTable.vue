@@ -8,6 +8,8 @@
         <th>Исполнители</th>
         <th>Жанры</th>
         <th>Оптовая цена</th>
+        <th v-if="showPrice">Розничная цена</th>
+        <th v-if="showPrice">В наличии</th>
       </tr>
     </thead>
     <tbody>
@@ -15,8 +17,8 @@
         v-for="record in records"
         :key="record.id"
         :record="record"
+        :showPrice="showPrice"
         @click="goToDetails(record.id)"
-        class="click"
       />
     </tbody>
   </table>
@@ -35,6 +37,10 @@ export default {
       type: Array,
       required: true,
     },
+    showPrice: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     goToDetails(id) {

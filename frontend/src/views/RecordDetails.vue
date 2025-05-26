@@ -1,6 +1,7 @@
 <template>
     <div v-if="recording" class="details">
         <div class="info">
+        <button class="back" @click="$router.go(-1)">Назад</button>
             <h1>Информация о записи</h1>
             <p>Название: {{recording.name}}</p>
             <p>Исполнители:</p>
@@ -44,7 +45,7 @@
         <div v-else><h3>Запись доступна во всех магазинахദ്ദി( • ᴗ - ) ✧</h3></div>
     </div>
     <div v-else>
-        <h3 class="error">Кажется что-то пошло не так...</h3>
+        <h3 class="error">Загрузка...</h3>
     </div> 
 
 </template>
@@ -131,5 +132,9 @@
         cursor: pointer;
         width: 20%;
         margin: 1% 0;
+    }
+    .back{
+        max-width: 10%;
+        margin: 0;
     }
 </style>

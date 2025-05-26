@@ -115,4 +115,48 @@ exports.getRecordingById = async (req, res) => {
             res.status(500).json({ message: 'Ошибка сервера' });
         }
   };
+
+  exports.getRecordingsByStore = async (req, res) => {
+    try{
+        const {title, artistId, genreId, mediumId, storeId} = req.query;
+
+        const filter = {};
+        if (title) {
+            filter.name = {[Op.iLike]: `%${title}%`};
+        }
+        if (mediumId){
+            filter.mediumId = mediumId;
+        }
+
+        const recordings = await Recording.findAll({
+            where: filter,
+            include: [
+                {model: Medium},
+                {
+                    model: Artist,
+                    through: {attributes: []},
+                    where: artistId ? {id:artistId}: undefined,
+                    required: !!artistId
+                },
+                {
+                    model: Genre,
+                    through: {attributes: []},
+                    where: genreId ? {id:genreId}: undefined,
+                    required: !!genreId
+                },
+                {
+                    model: Catalog,
+                    where: {storeId},
+                    attributes: ['stock', 'retail_price'],
+                    required: true
+                },
+            ]
+        });
+
+        res.status(200).json(recordings);
+    } catch(error){
+        console.error(error);
+        res.status(500).json({error: 'Ошибка при получении записей'});
+    }
+};
   
