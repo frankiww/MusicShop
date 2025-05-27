@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 
 import RecordsView from '../views/RecordsView.vue'
 import ShopsView from '../views/ShopsView.vue'
-// import Analytics from '../views/Analytics.vue'
+import AnalyticsView from '../views/AnalyticsView.vue'
 import OrdersView from '../views/OrdersView.vue'
 // import AdminLogin from '../views/AdminLogin.vue'
 import RecordDetails from '../views/RecordDetails.vue'
@@ -12,7 +12,7 @@ import StoreDetails from '../views/StoreDetails.vue'
 const routes = [
     {path: '/', component: RecordsView },
     {path: '/shops', component: ShopsView },
-    // {path: '/analytics', component: Analytics },
+    {path: '/analytics', component: AnalyticsView },
     {path: '/orders', component: OrdersView },
     // {path: '/admin', component: AdminLogin },
     {path: '/recordings/:id', component: RecordDetails},
