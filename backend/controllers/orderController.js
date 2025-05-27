@@ -1,10 +1,18 @@
-const {Recording, Medium, Artist, Genre, RecordGenre, RecordArtist, Catalog, Store, Order} = require('../models');
+const {Recording, Medium, Artist, Genre, RecordGenre, RecordArtist, Catalog, Store, Order, Status} = require('../models');
 const {Op} = require('sequelize');
 
 exports.getAllOrders = async (req, res) => {
     try{
 
-        const orders = await Order.findAll();
+        const orders = await Order.findAll(
+            {
+                include: [
+                    {
+                        model: Status                    },
+
+                ]
+            }
+        );
 
         res.status(200).json(orders);
     } catch(error){

@@ -4,6 +4,7 @@
     <td>{{ recordName }}</td>
     <td>{{ order.quantity}}</td>
     <td>{{ order.price}}</td>
+    <td>{{ order.Status.name}}</td>
   </tr>
 </template>
 
