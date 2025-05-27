@@ -2,6 +2,8 @@ const TopRecsStrategy = require('./TopRecsStrategy');
 const TopArtistsStrategy = require('./TopArtistsStrategy');
 const SoldQtyStrategy = require('./SoldQtyStrategy');
 const TotalSalesStrategy = require('./TotalSalesStrategy');
+const MaxProfitStrategy = require('./MaxProfitStrategy');
+
 
 
 
@@ -24,6 +26,8 @@ class AnalyticsContext {
                 return new SoldQtyStrategy();
             case 'totalSales':
                 return new TotalSalesStrategy();
+            case 'maxProfit':
+                return new MaxProfitStrategy();
             default:
                 throw new Error(`Неизвестная стратегия ${name}`);
         }
