@@ -1,10 +1,24 @@
+const TopRecsStrategy = require('./TopRecsStrategy');
+const TopArtistsStrategy = require('./TopArtistsStrategy');
+
 class AnalyticsContext {
-    constructor(strategy) {
-        this.strategy = strategy;
+    constructor(strategyName) {
+        this.strategy = this.getStrategyName(strategyName);
     }
 
-    setStrategy(strategy) {
-        this.strategy = strategy;
+    setStrategy(strategyName) {
+        this.strategy = this.getStrategyName(strategyName);
+    }
+
+    getStrategyName(name){
+        switch (name) {
+            case 'topRecs':
+                return new TopRecsStrategy();
+            case 'topArtists':
+                return new TopArtistsStrategy()
+            default:
+                throw new Error(`Неизвестная стратегия ${name}`);
+        }
     }
 
     async execute(params, db) {

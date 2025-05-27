@@ -1,6 +1,6 @@
 const AnalyticsStrategy = require('./baseStrategy');
 const {Sale, Recording, Medium} = require('../models');
-const {Op, Sequelize} = require('sequelize');
+const {Op, fn, col, literal} = require('sequelize');
 
 class TopRecsStrategy extends AnalyticsStrategy{
     async execute(params, db){
@@ -18,11 +18,11 @@ class TopRecsStrategy extends AnalyticsStrategy{
         const result = await Sale.findAll({
             attributes: [
                 'recordingId',
-                [db.fn('SUM', db.col('quantity')), 'total'],
+                [fn('SUM', col('quantity')), 'total'],
             ],
             where: filter,
             group: ['recordingId', 'Recording.id', 'Recording->Medium.id'],
-            order: [[db.literal('total'), 'DESC']],
+            order: [[literal('total'), 'DESC']],
             limit: 5,
             include: [
                 {
