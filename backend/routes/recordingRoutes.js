@@ -6,11 +6,15 @@ router.get('/', recordingController.getAllRecordings);
 
 router.get('/inStore', recordingController.getRecordingsByStore);
 
+router.get('/notInStore', recordingController.getRecordingsNotInStore);
+
 router.get('/:id', recordingController.getRecordingById);
 
 router.get('/:id/available', recordingController.availableShops);
 
 router.get('/:id/unavailable', recordingController.unavailableShops);
+
+
 
 
 
