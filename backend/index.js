@@ -9,6 +9,7 @@ const artistRoutes = require('./routes/artistRoutes');
 const mediumRoutes = require('./routes/mediumRoutes');
 const storeRoutes = require('./routes/storeRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
 
 
 
@@ -24,6 +25,7 @@ app.use('/api/artists', artistRoutes);
 app.use('/api/mediums', mediumRoutes);
 app.use('/api/stores', storeRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 
 
