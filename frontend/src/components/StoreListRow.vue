@@ -27,4 +27,7 @@ td {
 ul {
   list-style-type: none;
 }
+tr:hover{
+  background-color: #8D99AE;
+}
 </style>

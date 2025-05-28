@@ -29,8 +29,8 @@
        :data="results"/>
     </div>
 
-    <div v-else-if="selectedStrategy">
-        Ничего не найдено.
+    <div v-else-if="selectedStrategy&&appliedStrategy" class="noRes">
+        <h3>Ничего не найдено</h3>
     </div>
 
 
@@ -105,5 +105,10 @@
         font-size: 100%;
         cursor: pointer;
         width: 15%;
+    }
+    .noRes{
+        text-align: center;
+        margin-top:3%;
+
     }
 </style>

@@ -47,6 +47,9 @@ td {
   border: 1px solid #2B2D42;
   cursor: pointer;
 }
+tr:hover{
+  background-color: #8D99AE;
+}
 ul {
   list-style-type: none;
 }

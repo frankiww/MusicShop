@@ -65,5 +65,9 @@ table {
   border-collapse: collapse;
   margin: 40px auto;
 }
+th {
+  padding: 8px;
+  text-align: left;
+}
 
 </style>

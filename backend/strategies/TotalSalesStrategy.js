@@ -18,7 +18,7 @@ class TotalSalesStrategy extends AnalyticsStrategy{
         const result = Sale.findAll({
             where: filter,
             attributes: [
-                [literal('SUM("quantity" * "price")'), 'total'],
+                [fn('COALESCE', literal('SUM("quantity" * "price")'), 0), 'total'],
             ]
         });
 

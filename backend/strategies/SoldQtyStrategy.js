@@ -18,7 +18,7 @@ class SoldQtyStrategy extends AnalyticsStrategy{
         const result = Sale.findAll({
             where: filter,
             attributes: [
-                [fn('SUM', col('quantity')), 'total'],
+                [fn('COALESCE', fn('SUM', col('quantity')), 0), 'total'],
             ]
         });
 
