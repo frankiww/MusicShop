@@ -4,15 +4,19 @@
     <div class="records-view">
         <h1>Каталог записей</h1>
 
-        <FilterPanel
-            v-model:search="searchQuery"
-            v-model:genre="selectedGenre"
-            v-model:artist="selectedArtist"
-            v-model:medium="selectedMedium"
-            :genres="genres"
-            :artists="artists"
-            :mediums="mediums"
-        />
+        <div class="filters">
+            <FilterPanel
+                v-model:search="searchQuery"
+                v-model:genre="selectedGenre"
+                v-model:artist="selectedArtist"
+                v-model:medium="selectedMedium"
+                :genres="genres"
+                :artists="artists"
+                :mediums="mediums"
+            />
+            <button @click="resetFilters">Сбросить</button>
+        </div>
+
 
         <RecordTable :records="records"/>
     </div>
@@ -78,14 +82,34 @@
                 } catch (error) {
                     console.error('Ошибка при загрузке записей:', error);
                 }
+            },
+            resetFilters() {
+                this.searchQuery = '';
+                this.selectedGenre = '';
+                this.selectedArtist = '';
+                this.selectedMedium = '';
             }
 
         }
     }
 </script>
 
-<style>
+<style scoped>
     .records-view{
         margin: 20px;
+    }
+    .filters{
+        display: flex;
+    }
+    button{
+        background-color: #8D99AE;
+        color: #2B2D42;
+        padding: 0.5%;
+        border: 1px solid #EDF2F4;
+        font-size: 100%;
+        cursor: pointer;
+        width: 15%;
+        margin: 0 20px;
+        height: 100%;
     }
 </style>

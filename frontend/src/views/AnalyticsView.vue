@@ -22,6 +22,8 @@
         </select>
 
         <button @click="fetchAnalytics">Показать</button>
+        <button @click="resetFilters">Сбросить</button>
+
     </div>
     <div v-if="results.length>0">
        <AnalyticsTable 
@@ -81,6 +83,12 @@
                 } catch(err){
                     console.error(err);
                 }
+            },
+            resetFilters() {
+                this.selectedStrategy = '';
+                this.startDate = '';
+                this.endDate = '';
+                this.results =[];
             }
         }
 }

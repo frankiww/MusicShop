@@ -7,6 +7,7 @@
             <router-link to="/" class="nav-link">Записи</router-link>
             <router-link to="/shops" class="nav-link">Магазины</router-link>
             <router-link to="/analytics" class="nav-link">Аналитика</router-link>
+            <router-link to="/sales" class="nav-link">Продажи</router-link>
             <router-link to="/orders" class="nav-link">Заказы</router-link>
             <router-link to="/admin" class="nav-link admin-link">Админ</router-link>
         </nav>

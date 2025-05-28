@@ -52,7 +52,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .stores-view{
         margin: 20px;
     }

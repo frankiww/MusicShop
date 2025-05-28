@@ -29,7 +29,6 @@
         <div class="controls">
             <button @click="activeTab = 'storesWith'" :class="{ active: activeTab === 'storesWith' }">В наличии</button>
             <button @click="activeTab = 'storesWithout'" :class="{ active: activeTab === 'storesWithout' }">Нет в наличии</button>
-            <button @click="activeTab = 'sales'" :class="{ active: activeTab === 'sales' }">Продажи</button>
         </div>
 
         <div v-if="activeTab === 'storesWith'">
@@ -52,10 +51,6 @@
                     :recording="recording" />
             </div>
             <div v-else><h3>Запись доступна во всех магазинахദ്ദി( • ᴗ - ) ✧</h3></div>
-        </div>
-
-        <div v-if="activeTab === 'sales'">
-        <p>Скоро!!!</p>
         </div>
     </div>
     <div v-else>

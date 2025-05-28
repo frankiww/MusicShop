@@ -17,7 +17,6 @@
             <div class="controls">
                 <button @click="activeTab = 'avail'" :class="{ active: activeTab === 'avail' }">В наличии</button>
                 <button @click="activeTab = 'unavail'" :class="{ active: activeTab === 'unavail' }">Нет в наличии</button>
-                <button @click="activeTab = 'sales'" :class="{ active: activeTab === 'sales' }">Продажи</button>
             </div>
 
             <div v-if="activeTab === 'avail'">
