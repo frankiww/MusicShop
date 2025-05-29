@@ -38,7 +38,8 @@
             :record="editingRecord"
             :genres="genres"
             :artists="artists"
-            :mediums="mediums"  
+            :mediums="mediums" 
+            :isEdit="isEdit" 
             @save="handleSave"
             @close="handleCancel" 
         />
@@ -70,7 +71,8 @@
                 records: [],
                 isAdmin: false,
                 editingRecord: null,
-                showModal: false
+                showModal: false,
+                isEdit: false,
             }
         },
         mounted(){
@@ -130,7 +132,7 @@
             },
             getAddControls() {
                 return getAdminControls(this.isAdmin, 'recording', {
-                    onAdd: () => this.openAddRecordModal()
+                    onAdd: () => this.addRecord()
                 }) || [];
             },
             async deleteRecord(record) {
@@ -146,11 +148,16 @@
             editRecord(record){
                 this.editingRecord = record;
                 this.showModal = true;
+                this.isEdit = true;
             },
+            
             async handleSave(record) {
                 try {
-                    const res = await fetch(`/api/recordings/${record.id}`, {
-                        method: 'PUT',
+                    const method = this.isEdit ? 'PUT' : 'POST';
+                    const url = this.isEdit ? `/api/recordings/${record.id}` : `/api/recordings`;
+
+                    const res = await fetch(url, {
+                        method,
                         headers: {
                             'Content-Type': 'application/json',
                         },
@@ -167,6 +174,11 @@
             handleCancel(){
                 this.showModal = false;
                 this.editingRecord = null;
+            },
+            addRecord() {
+                this.showModal = true;
+                this.editingRecord = null;
+                this.isEdit = false;
             }
 
         }

@@ -268,5 +268,46 @@ exports.updateRecording = async (req, res) => {
         res.status(500).json({error: 'Ошибка при обновлении записи'});
     }
 };
+
+exports.createRecording = async (req, res) => {
+    try {
+        const {
+            name,
+            year,
+            mediumId,
+            wholesale_price,
+            genreIds, 
+            artistIds
+        } = req.body;
+
+        const recording = await Recording.create({
+            name,
+            year,
+            mediumId,
+            wholesale_price
+        });
+      
+        if (Array.isArray(genreIds)) {
+        await recording.setGenres(genreIds);
+        }
+    
+        if (Array.isArray(artistIds)) {
+        await recording.setArtists(artistIds);
+        }
+
+        const created = await Recording.findByPk(recording.id, {
+            include: [
+              { model: Medium },
+              { model: Genre, through: { attributes: [] } },
+              { model: Artist, through: { attributes: [] } }
+            ]
+        });
+      
+        res.status(201).json(created);
+
+    } catch(err){
+        res.status(500).json({error: 'Ошибка при создании записи'});
+    }
+};
   
   

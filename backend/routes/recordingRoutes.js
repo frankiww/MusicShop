@@ -4,6 +4,8 @@ const router = express.Router();
 
 router.get('/', recordingController.getAllRecordings);
 
+router.post('/', recordingController.createRecording);
+
 router.get('/inStore', recordingController.getRecordingsByStore);
 
 router.get('/notInStore', recordingController.getRecordingsNotInStore);

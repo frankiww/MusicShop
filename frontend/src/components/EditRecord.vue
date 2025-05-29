@@ -54,7 +54,7 @@
 
 
         <div class="modal-actions">
-          <button type="submit">Сохранить</button>
+          <button type="submit">{{ isEdit ? 'Сохранить' : 'Добавить' }}</button>
           <button type="button" @click="$emit('close')">Отмена</button>
         </div>
       </form>
@@ -71,6 +71,7 @@ export default {
     genres: Array,
     artists: Array,
     mediums: Array,
+    isEdit: Boolean,
   },
   data() {
     return {
@@ -98,13 +99,26 @@ export default {
             genreIds: newRecord.Genres?.map(g => g.id) || [],
             artistIds: newRecord.Artists?.map(a => a.id) || [],
           };
+        } else {
+          this.form = {
+            name: '',
+            year: '',
+            mediumId: null,
+            wholesale_price: '',
+            genreIds: [],
+            artistIds: [],
+          };
         }
       },
     },
   },
   methods: {
     submitForm() {
-      this.$emit('save', { ...this.form, id: this.record.id });
+      const payload = {...this.form};
+      if(this.isEdit) {
+        payload.id = this.record.id
+      }
+      this.$emit('save',payload);
     },
   },
 };
@@ -118,13 +132,15 @@ export default {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
+  background-attachment: fixed;  
 }
 
 .modal-content {
-  background: white;
+  background: #EDF2F4;
   padding: 2rem;
   border-radius: 8px;
   width: 500px;
@@ -141,6 +157,10 @@ select {
   width: 100%;
   margin-top: 10px;
   height: 30px;
+  background-color: #EDF2F4;
+  border: 1px solid #8D99AE;
+  border-radius: 4px;
+  padding: 5px;
 }
 
 .modal-actions {
@@ -150,12 +170,12 @@ select {
 }
 
 .checkbox-scroll {
-  border: 1px solid #ccc;
+  border: 1px solid #8D99AE;
   border-radius: 4px;
   max-height: 130px; /* фиксированная высота */
   overflow-y: auto;
   padding: 0 10px;
-  background-color: #fff;
+  background-color: #EDF2F4;
 }
 
 input[type="checkbox"]{
@@ -167,5 +187,19 @@ input[type="checkbox"]{
   display: block;
   margin-bottom: 3%;
 
+}
+button{
+    background-color: #8D99AE;
+    color: #2B2D42;
+    padding: 1% 5%;
+    border: 1px solid #EDF2F4;
+    font-size: 100%;
+    cursor: pointer;
+    margin: 0 3px;
+}
+button:hover{
+    background-color: #2B2D42;
+    color: #EDF2F4;
+    border: 1px solid #2B2D42;
 }
 </style>
