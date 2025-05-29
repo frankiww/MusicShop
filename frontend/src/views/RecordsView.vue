@@ -32,6 +32,16 @@
             :records="records"
             :isAdmin="isAdmin"
             :getControls="getControlsRow"/>
+
+        <EditRecord 
+            v-if="showModal"
+            :record="editingRecord"
+            :genres="genres"
+            :artists="artists"
+            :mediums="mediums"  
+            @save="handleSave"
+            @close="handleCancel" 
+        />
     </div>
 </template>
 
@@ -39,12 +49,14 @@
     import FilterPanel from '@/components/FilterPanel.vue';
     import RecordTable from '@/components/RecordTable.vue';
     import {getAdminControls} from '@/factories/AdminControlsFactory.js';
+    import EditRecord from '@/components/EditRecord.vue';
 
     export default {
         name: 'RecordsView',
         components: {
             FilterPanel,
-            RecordTable
+            RecordTable,
+            EditRecord
         },
         data(){
             return{
@@ -56,7 +68,9 @@
                 artists: [],
                 mediums: [],
                 records: [],
-                isAdmin: false
+                isAdmin: false,
+                editingRecord: null,
+                showModal: false
             }
         },
         mounted(){
@@ -129,6 +143,31 @@
                     console.error(error);
                 }
             },
+            editRecord(record){
+                this.editingRecord = record;
+                this.showModal = true;
+            },
+            async handleSave(record) {
+                try {
+                    const res = await fetch(`/api/recordings/${record.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(record),
+                    });
+                    if (!res.ok) throw new Error('Ошибка');
+                    this.showModal = false;
+                    this.editingRecord = null;
+                    await this.fetchRecords();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+            handleCancel(){
+                this.showModal = false;
+                this.editingRecord = null;
+            }
 
         }
     }

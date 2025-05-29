@@ -16,11 +16,7 @@ router.get('/:id/unavailable', recordingController.unavailableShops);
 
 router.delete('/:id', recordingController.deleteRecording);
 
-
-
-
-
-
+router.put('/:id', recordingController.updateRecording);
 
 
 module.exports = router;

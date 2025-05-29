@@ -62,4 +62,18 @@ tr:hover{
 ul {
   list-style-type: none;
 }
+button{
+    background-color: #8D99AE;
+    color: #2B2D42;
+    padding: 0.5%;
+    border: 1px solid #EDF2F4;
+    font-size: 100%;
+    cursor: pointer;
+    margin: 0 5px;
+}
+button:hover{
+    background-color: #2B2D42;
+    color: #EDF2F4;
+    border: 1px solid #2B2D42;
+}
 </style>

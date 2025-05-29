@@ -223,5 +223,50 @@ exports.deleteRecording = async (req, res) => {
         res.status(500).json({error: 'Ошибка при удалении записи'});
     }
 };
+
+exports.updateRecording = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        const {
+            name,
+            year,
+            mediumId,
+            wholesale_price,
+            genreIds, 
+            artistIds
+        } = req.body;
+
+        const rec = await Recording.findByPk(id);
+        if(!rec) {
+            return res.status(404).json({message: 'запись не найдена'});
+        }
+        await rec.update({
+            name,
+            year,
+            mediumId,
+            wholesale_price,
+          });
+        if (Array.isArray(genreIds)) {
+        await rec.setGenres(genreIds);
+        }
+    
+        if (Array.isArray(artistIds)) {
+        await rec.setArtists(artistIds);
+        }
+
+        const updatedRecording = await Recording.findByPk(id, {
+            include: [
+              { model: Medium },
+              { model: Genre, through: { attributes: [] } },
+              { model: Artist, through: { attributes: [] } },
+            ],
+          });
+      
+        res.status(200).json(updatedRecording);
+    } catch(err){
+        res.status(500).json({error: 'Ошибка при обновлении записи'});
+    }
+};
   
   
