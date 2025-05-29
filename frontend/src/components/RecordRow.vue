@@ -20,6 +20,16 @@
     <td>{{ record.wholesale_price }}</td>
     <td v-if="showPrice">{{ record.Catalogs[0].retail_price }}</td>
     <td v-if="showPrice">{{ record.Catalogs[0].stock }}</td>
+    <td v-if="isAdmin">
+      <button
+        v-for="control in getControls(record)"
+        :key="control.label"
+        :class="control.class"
+        @click.stop="control.onClick"
+      >
+        {{ control.label }}
+      </button>
+    </td>
   </tr>
 </template>
 
@@ -33,10 +43,9 @@ export default {
     },
     showPrice: {
       type: Boolean
-    }
-  },
-  mounted(){
-    console.log(this.record);
+    },
+    isAdmin: Boolean,
+    getControls: Function
   }
 };
 </script>

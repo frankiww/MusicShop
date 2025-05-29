@@ -207,5 +207,21 @@ exports.getRecordingsNotInStore = async (req, res) => {
         res.status(500).json({error: 'Ошибка при получении записей'});
     }
 };
+
+exports.deleteRecording = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const rec = await Recording.findByPk(id);
+
+        if(!rec) {
+            return res.status(404).json({message: 'запись не найдена'});
+        }
+
+        await rec.destroy();
+        res.status(204).send();
+    } catch(err){
+        res.status(500).json({error: 'Ошибка при удалении записи'});
+    }
+};
   
   

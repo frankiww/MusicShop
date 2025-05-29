@@ -14,6 +14,9 @@ router.get('/:id/available', recordingController.availableShops);
 
 router.get('/:id/unavailable', recordingController.unavailableShops);
 
+router.delete('/:id', recordingController.deleteRecording);
+
+
 
 
 

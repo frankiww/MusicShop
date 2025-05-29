@@ -17,14 +17,28 @@
             <button @click="resetFilters">Сбросить</button>
         </div>
 
+        <div v-if="isAdmin" class="admin-actions">
+            <button
+                v-for="control in getAddControls()"
+                :key="control.label"
+                :class="control.class"
+                @click="control.onClick"
+            >
+                {{ control.label }}
+            </button>
+        </div>
 
-        <RecordTable :records="records"/>
+        <RecordTable 
+            :records="records"
+            :isAdmin="isAdmin"
+            :getControls="getControlsRow"/>
     </div>
 </template>
 
 <script>
     import FilterPanel from '@/components/FilterPanel.vue';
     import RecordTable from '@/components/RecordTable.vue';
+    import {getAdminControls} from '@/factories/AdminControlsFactory.js';
 
     export default {
         name: 'RecordsView',
@@ -41,12 +55,14 @@
                 genres: [],
                 artists: [],
                 mediums: [],
-                records: []
+                records: [],
+                isAdmin: false
             }
         },
         mounted(){
             this.fetchFilterData();
             this.fetchRecords();
+            this.checkAdmin();
         },
         watch: {
             searchQuery: 'fetchRecords',
@@ -88,7 +104,31 @@
                 this.selectedGenre = '';
                 this.selectedArtist = '';
                 this.selectedMedium = '';
-            }
+            },
+            getControlsRow(record) {
+                return getAdminControls(this.isAdmin, 'recording', {
+                    onEdit: () => this.editRecord(record),
+                    onDelete: () => this.deleteRecord(record),
+                });
+            },
+            checkAdmin(){
+                this.isAdmin = localStorage.getItem('isAdmin') === 'true';
+            },
+            getAddControls() {
+                return getAdminControls(this.isAdmin, 'recording', {
+                    onAdd: () => this.openAddRecordModal()
+                }) || [];
+            },
+            async deleteRecord(record) {
+                if (!confirm(`Удалить запись "${record.name}"?`)) return;
+                try {
+                    const res = await fetch(`/api/recordings/${record.id}`, {method: 'DELETE'});
+                    if (!res.ok) throw new Error('Ошибка удаления');
+                    await this.fetchRecords();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
 
         }
     }

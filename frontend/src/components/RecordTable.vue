@@ -18,6 +18,8 @@
         :key="record.id"
         :record="record"
         :showPrice="showPrice"
+        :isAdmin="isAdmin"
+        :getControls="getControls"
         @click="goToDetails(record.id)"
       />
     </tbody>
@@ -40,7 +42,9 @@ export default {
     showPrice: {
       type: Boolean,
       default: false
-    }
+    },
+    isAdmin: Boolean,
+    getControls: Function
   },
   methods: {
     goToDetails(id) {
