@@ -12,10 +12,6 @@ const orderRoutes = require('./routes/orderRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const salesRoutes = require('./routes/salesRoutes');
 
-
-
-
-
 const {swaggerSetup} = require('./config/swagger');
 const app = express();
 app.use(express.json());
@@ -29,10 +25,6 @@ app.use('/api/stores', storeRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/sales', salesRoutes);
-
-
-
-
 
 swaggerSetup(app);
 
