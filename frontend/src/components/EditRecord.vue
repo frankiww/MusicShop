@@ -10,12 +10,12 @@
 
         <label>
           Год:
-          <input v-model="form.year" type="number" min="1900" max="2100" required />
+          <input v-model="form.year" type="number" min="1900" max="2025" required />
         </label>
 
         <label>
           Носитель:
-            <select v-model="form.mediumId">
+            <select v-model="form.mediumId" required>
                 <option v-for="medium in mediums" :key="medium.id" :value="medium.id">
                 {{ medium.name }}
                 </option>
@@ -48,7 +48,7 @@
 
         <label>
           Оптовая цена:
-          <input v-model.number="form.wholesale_price" type="number" step="0.01" required />
+          <input v-model.number="form.wholesale_price" type="number" step="0.01" min="0" required />
         </label>
 
 
@@ -114,6 +114,14 @@ export default {
   },
   methods: {
     submitForm() {
+      if (this.form.artistIds.length === 0){
+        alert("Пожалуйста, выберите хотя бы одного исполнителя!");
+        return;
+      }
+      if (this.form.genreIds.length === 0){
+        alert("Пожалуйста, выберите хотя бы один жанр!");
+        return;
+      }
       const payload = {...this.form};
       if(this.isEdit) {
         payload.id = this.record.id
